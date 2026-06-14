@@ -114,6 +114,16 @@ curl http://localhost:8080/api/rentals/history/BIC-001
 
 El archivo `postman/BikeRental.postman_collection.json` contiene **12 requests** preconfiguradas con tests de validación. Para importarla: **Postman → Import → seleccionar el archivo**.
 
+## Despliegue
+
+La API está desplegada en **AWS EC2** con **GitHub Actions** como CI/CD:
+
+- **URL:** http://13.220.253.30:8080
+- **CI:** Compilación, tests unitarios (55) y empaquetado automático en cada push
+- **Deploy:** Automático a EC2 vía SSH cuando el CI pasa
+
+Para ver el estado del último deploy: **GitHub → Actions → Deploy to EC2**.
+
 ## Pruebas
 
 ```bash
