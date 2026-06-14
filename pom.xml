@@ -11,8 +11,8 @@
 	<groupId>com.gerson</groupId>
 	<artifactId>bike-rental</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name/>
-	<description/>
+	<name>bike-rental-api</name>
+	<description>Bike rental REST API - Spring Boot</description>
 	<url/>
 	<licenses>
 		<license/>

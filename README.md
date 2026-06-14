@@ -54,8 +54,8 @@ Se eligió una arquitectura en capas (`Controller → Service → Repository`) s
 
 ```bash
 # Clonar el repositorio
-git clone https://github.com/tu-usuario/bike-rental.git
-cd bike-rental
+git clone https://github.com/Gerson0803/bike-rental-api.git
+cd bike-rental-api
 
 # Compilar y ejecutar tests
 ./mvnw clean test
