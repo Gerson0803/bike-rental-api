@@ -1,0 +1,289 @@
+{
+	"info": {
+		"name": "Bike Rental API",
+		"description": "Colección para la API de alquiler de bicicletas. Importar en Postman y ejecutar contra http://localhost:8080",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Bicycles",
+			"item": [
+				{
+					"name": "Crear bicicleta",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status 201 Created\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Tiene código\", function () {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json.code).to.eql(\"BIC-100\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"code\": \"BIC-100\",\n  \"type\": \"URBANA\",\n  \"status\": \"DISPONIBLE\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/bicycles",
+							"host": ["http", "localhost"],
+							"port": "8080",
+							"path": ["api", "bicycles"]
+						}
+					}
+				},
+				{
+					"name": "Listar disponibles (sin filtro)",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "http://localhost:8080/api/bicycles/available",
+							"host": ["http", "localhost"],
+							"port": "8080",
+							"path": ["api", "bicycles", "available"]
+						}
+					}
+				},
+				{
+					"name": "Listar disponibles (filtro URBANA)",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "http://localhost:8080/api/bicycles/available?type=URBANA",
+							"host": ["http", "localhost"],
+							"port": "8080",
+							"path": ["api", "bicycles", "available"],
+							"query": [
+								{
+									"key": "type",
+									"value": "URBANA"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Listar disponibles (filtro inválido → 400)",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "http://localhost:8080/api/bicycles/available?type=INVALIDO",
+							"host": ["http", "localhost"],
+							"port": "8080",
+							"path": ["api", "bicycles", "available"],
+							"query": [
+								{
+									"key": "type",
+									"value": "INVALIDO"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Rentals",
+			"item": [
+				{
+					"name": "Iniciar alquiler",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status 201 Created\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"pm.test(\"Tiene ID\", function () {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json).to.have.property(\"id\");",
+									"});",
+									"",
+									"pm.collectionVariables.set(\"rentalId\", pm.response.json().id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"bicycleCode\": \"BIC-001\",\n  \"customerName\": \"Juan Pérez\",\n  \"estimatedHours\": 2,\n  \"startTime\": \"2026-06-14T10:00:00\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/rentals",
+							"host": ["http", "localhost"],
+							"port": "8080",
+							"path": ["api", "rentals"]
+						}
+					}
+				},
+				{
+					"name": "Iniciar alquiler (sin startTime)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"bicycleCode\": \"BIC-005\",\n  \"customerName\": \"María García\",\n  \"estimatedHours\": 3\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/rentals",
+							"host": ["http", "localhost"],
+							"port": "8080",
+							"path": ["api", "rentals"]
+						}
+					}
+				},
+				{
+					"name": "Iniciar alquiler (bicicleta no disponible → 400)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"bicycleCode\": \"BIC-004\",\n  \"customerName\": \"Pedro\",\n  \"estimatedHours\": 1\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/rentals",
+							"host": ["http", "localhost"],
+							"port": "8080",
+							"path": ["api", "rentals"]
+						}
+					}
+				},
+				{
+					"name": "Iniciar alquiler (datos inválidos → 400)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"bicycleCode\": \"\",\n  \"customerName\": \"\",\n  \"estimatedHours\": 0\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/rentals",
+							"host": ["http", "localhost"],
+							"port": "8080",
+							"path": ["api", "rentals"]
+						}
+					}
+				},
+				{
+					"name": "Finalizar alquiler",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Tiene totalCost\", function () {",
+									"    var json = pm.response.json();",
+									"    pm.expect(json).to.have.property(\"totalCost\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"endTime\": \"2026-06-14T13:20:00\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/rentals/{{rentalId}}/finish",
+							"host": ["http", "localhost"],
+							"port": "8080",
+							"path": ["api", "rentals", "{{rentalId}}", "finish"]
+						}
+					}
+				},
+				{
+					"name": "Finalizar alquiler inexistente → 404",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"endTime\": \"2026-06-14T12:00:00\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/rentals/999/finish",
+							"host": ["http", "localhost"],
+							"port": "8080",
+							"path": ["api", "rentals", "999", "finish"]
+						}
+					}
+				},
+				{
+					"name": "Historial de bicicleta",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "http://localhost:8080/api/rentals/history/BIC-001",
+							"host": ["http", "localhost"],
+							"port": "8080",
+							"path": ["api", "rentals", "history", "BIC-001"]
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "rentalId",
+			"value": "1"
+		}
+	]
+}
