@@ -118,7 +118,7 @@ El archivo `postman/BikeRental.postman_collection.json` contiene **12 requests**
 
 La API está desplegada en **AWS EC2** con **GitHub Actions** como CI/CD:
 
-- **URL:** http://13.220.253.30:8080
+- **URL:** http://13.220.253.30:8080 (la raíz `/` devuelve 404 — usar los endpoints `/api/...`)
 - **CI:** Compilación, tests unitarios (55) y empaquetado automático en cada push
 - **Deploy:** Automático a EC2 vía SSH cuando el CI pasa
 
