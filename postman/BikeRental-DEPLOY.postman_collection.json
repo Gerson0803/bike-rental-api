@@ -1,7 +1,7 @@
 {
 	"info": {
-		"name": "Bike Rental API",
-		"description": "API de alquiler de bicicletas. Apunta a http://localhost:8080. Version desplegada: BikeRental-DEPLOY.postman_collection.json",
+		"name": "Bike Rental API (DEPLOY)",
+		"description": "API de alquiler de bicicletas desplegada en AWS EC2. Apunta a http://13.220.253.30:8080",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -18,7 +18,7 @@
 									"pm.test(\"Status 201 Created\", function () {",
 									"    pm.response.to.have.status(201);",
 									"});",
-									"pm.test(\"Tiene código\", function () {",
+									"pm.test(\"Tiene c??digo\", function () {",
 									"    var json = pm.response.json();",
 									"    pm.expect(json.code).to.eql(\"BIC-100\");",
 									"});"
@@ -39,8 +39,9 @@
 							"raw": "{\n  \"code\": \"BIC-100\",\n  \"type\": \"URBANA\",\n  \"status\": \"DISPONIBLE\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/bicycles",
-							"host": ["http", "localhost"],
+							"raw": "http://13.220.253.30:8080/api/bicycles",
+							"protocol": "http",
+							"host": ["13.220.253.30"],
 							"port": "8080",
 							"path": ["api", "bicycles"]
 						}
@@ -51,8 +52,9 @@
 					"request": {
 						"method": "GET",
 						"url": {
-							"raw": "http://localhost:8080/api/bicycles/available",
-							"host": ["http", "localhost"],
+							"raw": "http://13.220.253.30:8080/api/bicycles/available",
+							"protocol": "http",
+							"host": ["13.220.253.30"],
 							"port": "8080",
 							"path": ["api", "bicycles", "available"]
 						}
@@ -63,8 +65,9 @@
 					"request": {
 						"method": "GET",
 						"url": {
-							"raw": "http://localhost:8080/api/bicycles/available?type=URBANA",
-							"host": ["http", "localhost"],
+							"raw": "http://13.220.253.30:8080/api/bicycles/available?type=URBANA",
+							"protocol": "http",
+							"host": ["13.220.253.30"],
 							"port": "8080",
 							"path": ["api", "bicycles", "available"],
 							"query": [
@@ -77,12 +80,13 @@
 					}
 				},
 				{
-					"name": "Listar disponibles (filtro inválido → 400)",
+					"name": "Listar disponibles (filtro inv??lido ??? 400)",
 					"request": {
 						"method": "GET",
 						"url": {
-							"raw": "http://localhost:8080/api/bicycles/available?type=INVALIDO",
-							"host": ["http", "localhost"],
+							"raw": "http://13.220.253.30:8080/api/bicycles/available?type=INVALIDO",
+							"protocol": "http",
+							"host": ["13.220.253.30"],
 							"port": "8080",
 							"path": ["api", "bicycles", "available"],
 							"query": [
@@ -129,11 +133,12 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"bicycleCode\": \"BIC-001\",\n  \"customerName\": \"Juan Pérez\",\n  \"estimatedHours\": 2,\n  \"startTime\": \"2026-06-14T10:00:00\"\n}"
+							"raw": "{\n  \"bicycleCode\": \"BIC-001\",\n  \"customerName\": \"Juan P??rez\",\n  \"estimatedHours\": 2,\n  \"startTime\": \"2026-06-14T10:00:00\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/rentals",
-							"host": ["http", "localhost"],
+							"raw": "http://13.220.253.30:8080/api/rentals",
+							"protocol": "http",
+							"host": ["13.220.253.30"],
 							"port": "8080",
 							"path": ["api", "rentals"]
 						}
@@ -151,18 +156,19 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"bicycleCode\": \"BIC-005\",\n  \"customerName\": \"María García\",\n  \"estimatedHours\": 3\n}"
+							"raw": "{\n  \"bicycleCode\": \"BIC-005\",\n  \"customerName\": \"Mar??a Garc??a\",\n  \"estimatedHours\": 3\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/rentals",
-							"host": ["http", "localhost"],
+							"raw": "http://13.220.253.30:8080/api/rentals",
+							"protocol": "http",
+							"host": ["13.220.253.30"],
 							"port": "8080",
 							"path": ["api", "rentals"]
 						}
 					}
 				},
 				{
-					"name": "Iniciar alquiler (bicicleta no disponible → 400)",
+					"name": "Iniciar alquiler (bicicleta no disponible ??? 400)",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -176,15 +182,16 @@
 							"raw": "{\n  \"bicycleCode\": \"BIC-004\",\n  \"customerName\": \"Pedro\",\n  \"estimatedHours\": 1\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/rentals",
-							"host": ["http", "localhost"],
+							"raw": "http://13.220.253.30:8080/api/rentals",
+							"protocol": "http",
+							"host": ["13.220.253.30"],
 							"port": "8080",
 							"path": ["api", "rentals"]
 						}
 					}
 				},
 				{
-					"name": "Iniciar alquiler (datos inválidos → 400)",
+					"name": "Iniciar alquiler (datos inv??lidos ??? 400)",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -198,8 +205,9 @@
 							"raw": "{\n  \"bicycleCode\": \"\",\n  \"customerName\": \"\",\n  \"estimatedHours\": 0\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/rentals",
-							"host": ["http", "localhost"],
+							"raw": "http://13.220.253.30:8080/api/rentals",
+							"protocol": "http",
+							"host": ["13.220.253.30"],
 							"port": "8080",
 							"path": ["api", "rentals"]
 						}
@@ -236,15 +244,16 @@
 							"raw": "{\n  \"endTime\": \"2026-06-14T13:20:00\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/rentals/{{rentalId}}/finish",
-							"host": ["http", "localhost"],
+							"raw": "http://13.220.253.30:8080/api/rentals/{{rentalId}}/finish",
+							"protocol": "http",
+							"host": ["13.220.253.30"],
 							"port": "8080",
 							"path": ["api", "rentals", "{{rentalId}}", "finish"]
 						}
 					}
 				},
 				{
-					"name": "Finalizar alquiler inexistente → 404",
+					"name": "Finalizar alquiler inexistente ??? 404",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -258,8 +267,9 @@
 							"raw": "{\n  \"endTime\": \"2026-06-14T12:00:00\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/rentals/999/finish",
-							"host": ["http", "localhost"],
+							"raw": "http://13.220.253.30:8080/api/rentals/999/finish",
+							"protocol": "http",
+							"host": ["13.220.253.30"],
 							"port": "8080",
 							"path": ["api", "rentals", "999", "finish"]
 						}
@@ -270,8 +280,9 @@
 					"request": {
 						"method": "GET",
 						"url": {
-							"raw": "http://localhost:8080/api/rentals/history/BIC-001",
-							"host": ["http", "localhost"],
+							"raw": "http://13.220.253.30:8080/api/rentals/history/BIC-001",
+							"protocol": "http",
+							"host": ["13.220.253.30"],
 							"port": "8080",
 							"path": ["api", "rentals", "history", "BIC-001"]
 						}
